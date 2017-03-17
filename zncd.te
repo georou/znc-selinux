@@ -1,0 +1,44 @@
+policy_module(zncd, 1.0)
+
+########################################
+#
+# Declarations
+#
+
+#permissive zncd_t;
+
+type zncd_t;
+type zncd_exec_t;
+init_daemon_domain(zncd_t, zncd_exec_t)
+
+type zncd_unit_file_t;
+systemd_unit_file(zncd_unit_file_t)
+
+type zncd_var_lib_t;
+files_type(zncd_var_lib_t)
+
+
+
+########################################
+##
+## Local policy
+##
+
+
+allow zncd_t self:tcp_socket { connect read accept getattr listen create bind write setopt };
+allow zncd_t self:udp_socket { bind write connect create getattr read };
+allow zncd_t self:netlink_route_socket { read write nlmsg_read create bind getattr };
+
+manage_files_pattern(zncd_t, zncd_var_lib_t, zncd_var_lib_t)
+manage_dirs_pattern(zncd_t, zncd_var_lib_t, zncd_var_lib_t)
+
+kernel_read_system_state(zncd_t)
+
+corenet_tcp_bind_generic_node(zncd_t)
+corenet_tcp_connect_ircd_port(zncd_t)
+corenet_tcp_bind_ircd_port(zncd_t)
+
+sysnet_read_config(zncd_t)
+
+miscfiles_read_generic_certs(zncd_t)
+
