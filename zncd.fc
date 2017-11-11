@@ -1,4 +1,5 @@
 /usr/bin/znc			--	gen_context(system_u:object_r:zncd_exec_t,s0)
+
 /var/lib/znc(/.*)?			gen_context(system_u:object_r:zncd_var_lib_t,s0)
 
 /usr/lib/systemd/system/znc.*	--	gen_context(system_u:object_r:zncd_unit_file_t,s0)
