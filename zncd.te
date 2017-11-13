@@ -1,4 +1,4 @@
-policy_module(zncd, 1.1)
+policy_module(zncd, 1.2)
 
 ########################################
 #
@@ -10,6 +10,7 @@ policy_module(zncd, 1.1)
 type zncd_t;
 type zncd_exec_t;
 init_daemon_domain(zncd_t, zncd_exec_t)
+role system_r types zncd_t;
 
 type zncd_unit_file_t;
 systemd_unit_file(zncd_unit_file_t)
